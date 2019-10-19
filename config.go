@@ -22,13 +22,13 @@ const (
 )
 
 var (
-	ErrorNotFoundRoleArn         error = errors.New(ROLE_ARN + ErrorNotFound)
-	ErrorNotFoundSourceProfile   error = errors.New(SOURCE_PROFILE + ErrorNotFound)
-	ErrorNotFoundMfaSerial       error = errors.New(MFA_SERIAL + ErrorNotFound)
-	ErrorNotFoundDurationSeconds error = errors.New(DURATION_SECONDS + ErrorNotFound)
-	ErrorNotFoundExternalID      error = errors.New(EXTERNAL_ID + ErrorNotFound)
-	ErrorNotFoundOutput          error = errors.New(OUTPUT + ErrorNotFound)
-	ErrorNotFoundRegion          error = errors.New(REGION + ErrorNotFound)
+	ErrorNotFoundRoleArn         error = errors.New(ROLE_ARN + errorNotFound)
+	ErrorNotFoundSourceProfile   error = errors.New(SOURCE_PROFILE + errorNotFound)
+	ErrorNotFoundMfaSerial       error = errors.New(MFA_SERIAL + errorNotFound)
+	ErrorNotFoundDurationSeconds error = errors.New(DURATION_SECONDS + errorNotFound)
+	ErrorNotFoundExternalID      error = errors.New(EXTERNAL_ID + errorNotFound)
+	ErrorNotFoundOutput          error = errors.New(OUTPUT + errorNotFound)
+	ErrorNotFoundRegion          error = errors.New(REGION + errorNotFound)
 )
 
 type Config struct {
@@ -61,7 +61,7 @@ func (c *Configs) Parse(configFile string) error {
 
 		config := Config{}
 
-		config.ProfileName = strings.Replace(section.Name(), "profile ", EmptyString, 1)
+		config.ProfileName = strings.Replace(section.Name(), "profile ", emptyString, 1)
 
 		if section.HasKey(ROLE_ARN) {
 			config.RoleArn = section.Key(ROLE_ARN).String()
@@ -124,7 +124,7 @@ func (c *Configs) GetRoleArn(profileName string) (string, error) {
 		}
 	}
 
-	return EmptyString, ErrorNotFoundRoleArn
+	return emptyString, ErrorNotFoundRoleArn
 }
 
 func (c *Configs) GetSourceProfile(profileName string) (string, error) {
@@ -134,7 +134,7 @@ func (c *Configs) GetSourceProfile(profileName string) (string, error) {
 		}
 	}
 
-	return EmptyString, ErrorNotFoundSourceProfile
+	return emptyString, ErrorNotFoundSourceProfile
 }
 
 func (c *Configs) GetMfaSerial(profileName string) (string, error) {
@@ -144,7 +144,7 @@ func (c *Configs) GetMfaSerial(profileName string) (string, error) {
 		}
 	}
 
-	return EmptyString, ErrorNotFoundMfaSerial
+	return emptyString, ErrorNotFoundMfaSerial
 }
 
 func (c *Configs) GetDurationSeconds(profileName string) (int, error) {
@@ -154,7 +154,7 @@ func (c *Configs) GetDurationSeconds(profileName string) (int, error) {
 		}
 	}
 
-	return ZeroInt, ErrorNotFoundDurationSeconds
+	return zeroInt, ErrorNotFoundDurationSeconds
 }
 
 func (c *Configs) GetExternalID(profileName string) (int, error) {
@@ -164,7 +164,7 @@ func (c *Configs) GetExternalID(profileName string) (int, error) {
 		}
 	}
 
-	return ZeroInt, ErrorNotFoundExternalID
+	return zeroInt, ErrorNotFoundExternalID
 }
 
 func (c *Configs) GetOutput(profileName string) (string, error) {
@@ -174,7 +174,7 @@ func (c *Configs) GetOutput(profileName string) (string, error) {
 		}
 	}
 
-	return EmptyString, ErrorNotFoundOutput
+	return emptyString, ErrorNotFoundOutput
 }
 
 func (c *Configs) GetRegion(profileName string) (string, error) {
@@ -184,19 +184,19 @@ func (c *Configs) GetRegion(profileName string) (string, error) {
 		}
 	}
 
-	return EmptyString, ErrorNotFoundRegion
+	return emptyString, ErrorNotFoundRegion
 }
 
 func GetConfigsPath() (string, error) {
 	configsFile, err := homedir.Expand(AWS_CONFIG)
 	if err != nil {
-		return EmptyString, err
+		return emptyString, err
 	}
 
-	if os.Getenv(AWS_CONFIG_FILE) != EmptyString {
+	if os.Getenv(AWS_CONFIG_FILE) != emptyString {
 		configsFile, err = homedir.Expand(os.Getenv(AWS_CONFIG_FILE))
 		if err != nil {
-			return EmptyString, err
+			return emptyString, err
 		}
 	}
 

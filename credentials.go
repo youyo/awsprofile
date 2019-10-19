@@ -9,15 +9,15 @@ import (
 )
 
 const (
-	AWS_SHARED_CREDENTIALS_FILE string = "AWS_SHARED_CREDENTIALS_FILE"
-	AWS_CREDENTIALS             string = "~/.aws/credentials"
-	AWS_ACCESS_KEY_ID           string = "aws_access_key_id"
-	AWS_SECRET_ACCESS_KEY       string = "aws_secret_access_key"
+	awsSharedCredentialsFile string = "AWS_SHARED_CREDENTIALS_FILE"
+	awsCredentials           string = "~/.aws/credentials"
+	awsAccessKeyId           string = "aws_access_key_id"
+	awsSecretAccessKey       string = "aws_secret_access_key"
 )
 
 var (
-	ErrorNotFoundAwsAccessKeyID     error = errors.New(AWS_ACCESS_KEY_ID + ErrorNotFound)
-	ErrorNotFoundAwsSecretAccessKey error = errors.New(AWS_SECRET_ACCESS_KEY + ErrorNotFound)
+	ErrorNotFoundAwsAccessKeyID     error = errors.New(awsAccessKeyId + errorNotFound)
+	ErrorNotFoundAwsSecretAccessKey error = errors.New(awsSecretAccessKey + errorNotFound)
 )
 
 type Credential struct {
@@ -47,12 +47,12 @@ func (c *Credentials) Parse(credentialsFile string) error {
 
 		credential.ProfileName = section.Name()
 
-		if section.HasKey(AWS_ACCESS_KEY_ID) {
-			credential.AwsAccessKeyID = section.Key(AWS_ACCESS_KEY_ID).String()
+		if section.HasKey(awsAccessKeyId) {
+			credential.AwsAccessKeyID = section.Key(awsAccessKeyId).String()
 		}
 
-		if section.HasKey(AWS_SECRET_ACCESS_KEY) {
-			credential.AwsSecretAccessKey = section.Key(AWS_SECRET_ACCESS_KEY).String()
+		if section.HasKey(awsSecretAccessKey) {
+			credential.AwsSecretAccessKey = section.Key(awsSecretAccessKey).String()
 		}
 
 		*c = append(*c, credential)
@@ -78,7 +78,7 @@ func (c *Credentials) GetAwsAccessKeyID(profileName string) (string, error) {
 		}
 	}
 
-	return EmptyString, ErrorNotFoundAwsAccessKeyID
+	return emptyString, ErrorNotFoundAwsAccessKeyID
 }
 
 func (c *Credentials) GetAwsSecretAccessKey(profileName string) (string, error) {
@@ -88,19 +88,19 @@ func (c *Credentials) GetAwsSecretAccessKey(profileName string) (string, error) 
 		}
 	}
 
-	return EmptyString, ErrorNotFoundAwsSecretAccessKey
+	return emptyString, ErrorNotFoundAwsSecretAccessKey
 }
 
 func GetCredentialsPath() (string, error) {
-	credentialsFile, err := homedir.Expand(AWS_CREDENTIALS)
+	credentialsFile, err := homedir.Expand(awsCredentials)
 	if err != nil {
-		return EmptyString, err
+		return emptyString, err
 	}
 
-	if os.Getenv(AWS_SHARED_CREDENTIALS_FILE) != EmptyString {
-		credentialsFile, err = homedir.Expand(os.Getenv(AWS_SHARED_CREDENTIALS_FILE))
+	if os.Getenv(awsSharedCredentialsFile) != emptyString {
+		credentialsFile, err = homedir.Expand(os.Getenv(awsSharedCredentialsFile))
 		if err != nil {
-			return EmptyString, err
+			return emptyString, err
 		}
 	}
 

@@ -1,17 +1,18 @@
 package awsprofile
 
-var (
-	EmptyString string = ""
-	ZeroInt     int    = 0
-
-	ErrorNotFound string = " is not found"
+const (
+	emptyString   string = ""
+	zeroInt       int    = 0
+	errorNotFound string = " is not found"
 )
 
+// AwsProfile provide Credentials and Configs
 type AwsProfile struct {
 	Credentials *Credentials
 	Configs     *Configs
 }
 
+// New create a AwsProfile instance
 func New() *AwsProfile {
 	awsProfile := &AwsProfile{
 		Credentials: NewCredentials(),
@@ -21,6 +22,7 @@ func New() *AwsProfile {
 	return awsProfile
 }
 
+// Parse credential file and config file
 func (a *AwsProfile) Parse() error {
 	credentialsFile, err := GetCredentialsPath()
 	if err != nil {
@@ -43,6 +45,7 @@ func (a *AwsProfile) Parse() error {
 	return nil
 }
 
+// ProfileNames get name of profiles
 func (a *AwsProfile) ProfileNames() ([]string, error) {
 	var profileNames []string
 
