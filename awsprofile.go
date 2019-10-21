@@ -1,9 +1,14 @@
 package awsprofile
 
+// Null values
 const (
-	emptyString   string = ""
-	zeroInt       int    = 0
-	errorNotFound string = " is not found"
+	EmptyString string = ""
+	ZeroInt     int    = 0
+)
+
+// Error messages
+const (
+	ErrorNotFound string = " is not found"
 )
 
 // AwsProfile provide Credentials and Configs
