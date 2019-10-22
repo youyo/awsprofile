@@ -67,6 +67,16 @@ func (a *AwsProfile) ProfileNames() ([]string, error) {
 	return profileNames, nil
 }
 
+// GetCredentials get Credentials
+func (a *AwsProfile) GetCredentials() *Credentials {
+	return a.Credentials
+}
+
+// GetConfigs get Configs
+func (a *AwsProfile) GetConfigs() *Configs {
+	return a.Configs
+}
+
 func removeDuplicate(s []string) []string {
 	var list []string
 
