@@ -1,6 +1,7 @@
 package awsprofile_test
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -46,7 +47,7 @@ func TestGetCredentialsPath(t *testing.T) {
 
 	file, err := awsprofile.GetCredentialsPath()
 	if err != nil {
-		t.Fatal(err)
+		t.Error(err)
 	}
 
 	if file != "./tests/.aws/credentials" {
@@ -69,5 +70,31 @@ func TestCredentials_Parse(t *testing.T) {
 
 	if err = creds.Parse(file); err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestCredentials_GetAwsAccessKeyID(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	creds := awsprofile.NewCredentials()
+	file, _ := awsprofile.GetCredentialsPath()
+	creds.Parse(file)
+
+	if awsAccessKeyID, err := creds.GetAwsAccessKeyID("foo"); err != nil {
+		t.Fatal(err)
+	} else if awsAccessKeyID != "ACCESS-2-XXXXXXXXXXXXX" {
+		t.Fatal(errors.New("Unmatched AwsAccessKeyID"))
+	}
+}
+
+func TestCredentials_GetAwsSecretAccessKey(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	creds := awsprofile.NewCredentials()
+	file, _ := awsprofile.GetCredentialsPath()
+	creds.Parse(file)
+
+	if awsSecretAccessKey, err := creds.GetAwsSecretAccessKey("foo"); err != nil {
+		t.Fatal(err)
+	} else if awsSecretAccessKey != "SECRET-2-XXXXXXXXXXXXX" {
+		t.Fatal(errors.New("Unmatched AwsSecretAccessKey"))
 	}
 }
