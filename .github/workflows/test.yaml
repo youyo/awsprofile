@@ -1,17 +1,29 @@
 name: test
 
-on: pull_request
+on:
+  - push
+  - pull_request
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [1.13.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
     env:
       GO111MODULE: on
     steps:
-      - uses: actions/checkout@master
       - uses: actions/setup-go@master
         with:
-          go-version: 1.13
-      - run: |
-          go mod download
-          go test -v -cover
+          go-version: ${{ matrix.go-version }}
+      - uses: actions/checkout@master
+      - run: go test -v -cover
+      - uses: 8398a7/action-slack@v2
+        with:
+          status: ${{ job.status }}
+          author_name: Integration Test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: always()

@@ -77,6 +77,36 @@ func (a *AwsProfile) GetConfigs() *Configs {
 	return a.Configs
 }
 
+// IsCredential
+func (a *AwsProfile) IsCredential(profile string) (bool, *Credential) {
+	var ok bool = false
+	var cred *Credential
+
+	for _, credential := range *a.Credentials {
+		if credential.ProfileName == profile {
+			ok = true
+			cred = &credential
+		}
+	}
+
+	return ok, cred
+}
+
+// IsConfig
+func (a *AwsProfile) IsConfig(profile string) (bool, *Config) {
+	var ok bool = false
+	var conf *Config
+
+	for _, config := range *a.Configs {
+		if config.ProfileName == profile {
+			ok = true
+			conf = &config
+		}
+	}
+
+	return ok, conf
+}
+
 func removeDuplicate(s []string) []string {
 	var list []string
 
