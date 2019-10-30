@@ -303,6 +303,66 @@ func (c *Configs) get(profileName string) (*Config, bool) {
 	return nil, false
 }
 
+func (c *Config) GetRoleArn() string {
+	return c.RoleArn
+}
+
+func (c *Config) GetSourceProfile() string {
+	return c.SourceProfile
+}
+
+func (c *Config) GetCredentialSource() string {
+	return c.CredentialSource
+}
+
+func (c *Config) GetRoleSessionName() string {
+	return c.RoleSessionName
+}
+
+func (c *Config) GetMfaSerial() string {
+	return c.MfaSerial
+}
+
+func (c *Config) GetDurationSeconds() int {
+	return c.DurationSeconds
+}
+
+func (c *Config) GetAwsSessionToken() string {
+	return c.AwsSessionToken
+}
+
+func (c *Config) GetExternalID() int {
+	return c.ExternalID
+}
+
+func (c *Config) GetCaBundle() string {
+	return c.CaBundle
+}
+
+func (c *Config) GetCliFollowUrlparam() string {
+	return c.CliFollowUrlparam
+}
+
+func (c *Config) GetCliTimestampFormat() string {
+	return c.CliTimestampFormat
+}
+
+func (c *Config) GetCredentialProcess() string {
+	return c.CredentialProcess
+}
+
+func (c *Config) GetWebIdentityTokenFile() string {
+	return c.WebIdentityTokenFile
+}
+
+func (c *Config) GetOutput() string {
+	return c.Output
+}
+
+func (c *Config) GetRegion() string {
+	return c.Region
+}
+
 func GetConfigsPath() (string, error) {
 	configsFile, err := homedir.Expand(AWS_CONFIG)
 	if err != nil {

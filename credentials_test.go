@@ -98,3 +98,33 @@ func TestCredentials_GetAwsSecretAccessKey(t *testing.T) {
 		t.Fatal(errors.New("Unmatched AwsSecretAccessKey"))
 	}
 }
+
+func TestCredential_GetAwsAccessKeyID(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, cred := awsProfile.IsCredential("foo"); ok {
+		awsAccessKeyID := cred.GetAwsAccessKeyID()
+		if awsAccessKeyID != "ACCESS-2-XXXXXXXXXXXXX" {
+			t.Fatal(errors.New("Unmatched AwsAccessKeyID"))
+		}
+	}
+}
+
+func TestCredential_GetAwsSecretAccessKey(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, cred := awsProfile.IsCredential("foo"); ok {
+		awsSecretAccessKey := cred.GetAwsSecretAccessKey()
+		if awsSecretAccessKey != "SECRET-2-XXXXXXXXXXXXX" {
+			t.Fatal(errors.New("Unmatched AwsSecretAccessKey"))
+		}
+	}
+}

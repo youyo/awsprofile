@@ -100,6 +100,16 @@ func (c *Credentials) GetAwsSecretAccessKey(profileName string) (string, error) 
 	return EmptyString, ErrorNotFoundAwsSecretAccessKey
 }
 
+// GetAwsAccessKeyID get aws_access_key_id
+func (c *Credential) GetAwsAccessKeyID() string {
+	return c.AwsAccessKeyID
+}
+
+// GetAwsSecretAccessKey get aws_secret_access_key
+func (c *Credential) GetAwsSecretAccessKey() string {
+	return c.AwsSecretAccessKey
+}
+
 // GetCredentialsPath provide file path to credentials
 func GetCredentialsPath() (string, error) {
 	credentialsFile, err := homedir.Expand(AwsCredentials)

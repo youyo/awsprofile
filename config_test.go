@@ -267,3 +267,185 @@ func TestConfigs_GetRegion(t *testing.T) {
 		t.Fatal(errors.New("Unmatched Region"))
 	}
 }
+
+func TestConfig_GetRoleArn(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetRoleArn() != "arn:aws:iam::xxxxxxxxxxxx:role/bar" {
+			t.Fatal(errors.New("Unmatched RoleArn"))
+		}
+	}
+}
+
+func TestConfig_GetSourceProfile(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetSourceProfile() != "foo" {
+			t.Fatal(errors.New("Unmatched SourceProfile"))
+		}
+	}
+}
+
+func TestConfig_GetCredentialSource(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetCredentialSource() != "Environment" {
+			t.Fatal(errors.New("Unmatched CredentialSource"))
+		}
+	}
+}
+
+func TestConfig_GetRoleSessionName(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetRoleSessionName() != "foobar" {
+			t.Fatal(errors.New("Unmatched RoleSessionName"))
+		}
+	}
+}
+
+func TestConfig_GetMfaSerial(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetMfaSerial() != "arn:aws:iam::123456789012:mfa/foo" {
+			t.Fatal(errors.New("Unmatched MfaSerial"))
+		}
+	}
+}
+
+func TestConfig_GetDurationSeconds(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetDurationSeconds() != 43200 {
+			t.Fatal(errors.New("Unmatched DurationSeconds"))
+		}
+	}
+}
+
+func TestConfig_GetAwsSessionToken(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetAwsSessionToken() != "AQoEXAMPLEH4aoAH0gNCAPy..." {
+			t.Fatal(errors.New("Unmatched AwsSessionToken"))
+		}
+	}
+}
+
+func TestConfig_GetExternalID(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetExternalID() != 12345 {
+			t.Fatal(errors.New("Unmatched ExternalID"))
+		}
+	}
+}
+
+func TestConfig_GetCaBundle(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetCaBundle() != "dev/apps/ca-certs/cabundle-2019mar05.pem" {
+			t.Fatal(errors.New("Unmatched CaBundle"))
+		}
+	}
+}
+
+func TestConfig_GetCliFollowUrlparam(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetCliFollowUrlparam() != "false" {
+			t.Fatal(errors.New("Unmatched CliFollowUrlparam"))
+		}
+	}
+}
+
+func TestConfig_GetCredentialProcess(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetCredentialProcess() != "/opt/bin/awscreds-retriever --username susan" {
+			t.Fatal(errors.New("Unmatched CredentialProcess"))
+		}
+	}
+}
+
+func TestConfig_GetWebIdentityTokenFile(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetWebIdentityTokenFile() != "/path/to/a/token" {
+			t.Fatal(errors.New("Unmatched WebIdentityTokenFile"))
+		}
+	}
+}
+
+func TestConfig_GetOutput(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetOutput() != "json" {
+			t.Fatal(errors.New("Unmatched Output"))
+		}
+	}
+}
+
+func TestConfig_GetRegion(t *testing.T) {
+	os.Setenv("AWS_SHARED_CREDENTIALS_FILE", "./tests/.aws/credentials")
+	os.Setenv("AWS_CONFIG_FILE", "./tests/.aws/config")
+	awsProfile := awsprofile.New()
+	awsProfile.Parse()
+
+	if ok, config := awsProfile.IsConfig("bar"); ok {
+		if config.GetRegion() != "ap-northeast-1" {
+			t.Fatal(errors.New("Unmatched Region"))
+		}
+	}
+}
