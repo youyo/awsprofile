@@ -37,7 +37,7 @@ func ExampleConfigs_ProfileNames() {
 	}
 
 	fmt.Println(profiles)
-	// Output: [default bar]
+	// Output: [default bar barbar]
 }
 
 func TestGetConfigsPath(t *testing.T) {

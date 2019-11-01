@@ -34,7 +34,7 @@ func ExampleAwsProfile_ProfileNames() {
 	}
 
 	fmt.Println(profiles)
-	// Output: [default foo bar]
+	// Output: [default foo foobar bar barbar]
 }
 
 func ExampleAwsProfile_GetCredentials() {
@@ -62,7 +62,7 @@ func ExampleAwsProfile_GetCredentials() {
 	}
 
 	fmt.Println(profiles)
-	// Output: [default foo]
+	// Output: [default foo foobar]
 }
 
 func ExampleAwsProfile_GetConfigs() {
@@ -90,7 +90,7 @@ func ExampleAwsProfile_GetConfigs() {
 	}
 
 	fmt.Println(profiles)
-	// Output: [default bar]
+	// Output: [default bar barbar]
 }
 
 func TestAwsProfile_Parse(t *testing.T) {
