@@ -86,6 +86,7 @@ func (a *AwsProfile) IsCredential(profile string) (bool, *Credential) {
 		if credential.ProfileName == profile {
 			ok = true
 			cred = &credential
+			break
 		}
 	}
 
@@ -101,6 +102,7 @@ func (a *AwsProfile) IsConfig(profile string) (bool, *Config) {
 		if config.ProfileName == profile {
 			ok = true
 			conf = &config
+			break
 		}
 	}
 

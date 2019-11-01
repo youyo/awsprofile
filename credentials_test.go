@@ -37,7 +37,7 @@ func ExampleCredentials_ProfileNames() {
 	}
 
 	fmt.Println(profiles)
-	// Output: [default foo]
+	// Output: [default foo foobar]
 }
 
 func TestGetCredentialsPath(t *testing.T) {
